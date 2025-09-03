@@ -1,61 +1,69 @@
-# 🚀 Getting started with Strapi
+# Dino Backend
 
-Strapi comes with a full featured [Command Line Interface](https://docs.strapi.io/dev-docs/cli) (CLI) which lets you scaffold and manage your project in seconds.
+A Strapi 5 backend for the Dino project, providing a flexible API and admin panel for content management, shop, office, and site features.
 
-### `develop`
+## Project Purpose
 
-Start your Strapi application with autoReload enabled. [Learn more](https://docs.strapi.io/dev-docs/cli#strapi-develop)
+This project powers the backend for Dino, supporting:
+- **Content feeds** (news, updates, etc.)
+- **Shop and shop menu** (products, categories, addresses)
+- **Office information** (locations, details)
+- **Site-wide configuration**
+- **Custom image upload logic** (all images converted to WebP, cropped/resized, with robust extension logic)
 
-```
+## Main Features
+- Built with Strapi 5 (Node.js, TypeScript)
+- Modular API structure: `/src/api/{feature}` for feed, shop, office, shop-menu, site
+- Custom upload extension: `/src/extensions/upload/strapi-server.ts` overrides image manipulation for advanced processing
+- Global components for shared data (operation info, shop address)
+- Type definitions for generated content types
+
+## Folder Structure
+- `src/api/` — Feature APIs (feed, office, shop, shop-menu, site)
+- `src/components/global/` — Shared JSON components
+- `src/extensions/upload/` — Custom upload logic
+- `types/generated/` — TypeScript types for content
+
+## Getting Started
+
+### Development
+Start the Strapi backend in development mode:
+```powershell
 npm run develop
-# or
+```
+Or with yarn:
+```powershell
 yarn develop
 ```
 
-### `start`
-
-Start your Strapi application with autoReload disabled. [Learn more](https://docs.strapi.io/dev-docs/cli#strapi-start)
-
-```
-npm run start
-# or
-yarn start
-```
-
-### `build`
-
-Build your admin panel. [Learn more](https://docs.strapi.io/dev-docs/cli#strapi-build)
-
-```
+### Build Admin Panel
+```powershell
 npm run build
-# or
+```
+Or:
+```powershell
 yarn build
 ```
 
-## ⚙️ Deployment
-
-Strapi gives you many possible deployment options for your project including [Strapi Cloud](https://cloud.strapi.io). Browse the [deployment section of the documentation](https://docs.strapi.io/dev-docs/deployment) to find the best solution for your use case.
-
+### Start Production
+```powershell
+npm run start
 ```
-yarn strapi deploy
+Or:
+```powershell
+yarn start
 ```
 
-## 📚 Learn more
+## Troubleshooting
+- **Image upload issues:** See `src/extensions/upload/strapi-server.ts` for custom logic and console logs.
+- **Database/config errors:** Check `config/database.ts` and `config/plugins.ts`.
+- **Type errors:** Regenerate types in `types/generated/` if needed.
+- **General Strapi issues:** Refer to [Strapi documentation](https://docs.strapi.io).
 
-- [Resource center](https://strapi.io/resource-center) - Strapi resource center.
-- [Strapi documentation](https://docs.strapi.io) - Official Strapi documentation.
-- [Strapi tutorials](https://strapi.io/tutorials) - List of tutorials made by the core team and the community.
-- [Strapi blog](https://strapi.io/blog) - Official Strapi blog containing articles made by the Strapi team and the community.
-- [Changelog](https://strapi.io/changelog) - Find out about the Strapi product updates, new features and general improvements.
-
-Feel free to check out the [Strapi GitHub repository](https://github.com/strapi/strapi). Your feedback and contributions are welcome!
-
-## ✨ Community
-
-- [Discord](https://discord.strapi.io) - Come chat with the Strapi community including the core team.
-- [Forum](https://forum.strapi.io/) - Place to discuss, ask questions and find answers, show your Strapi project and get feedback or just talk with other Community members.
-- [Awesome Strapi](https://github.com/strapi/awesome-strapi) - A curated list of awesome things related to Strapi.
+## Resources
+- [Strapi Documentation](https://docs.strapi.io)
+- [Strapi Tutorials](https://strapi.io/tutorials)
+- [Strapi Community](https://discord.strapi.io)
 
 ---
-
-<sub>🤫 Psst! [Strapi is hiring](https://strapi.io/careers).</sub>
+<sub>Project maintained by efendy. Contributions welcome!</sub>
