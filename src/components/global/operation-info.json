@@ -1,0 +1,39 @@
+{
+  "collectionName": "components_global_operation_infos",
+  "info": {
+    "displayName": "Operation Info",
+    "icon": "calendar"
+  },
+  "options": {},
+  "attributes": {
+    "Minggu": {
+      "type": "string",
+      "default": "Tutup"
+    },
+    "Senin": {
+      "type": "string",
+      "default": "Tutup"
+    },
+    "Selasa": {
+      "type": "string",
+      "default": "Tutup"
+    },
+    "Rabu": {
+      "type": "string",
+      "default": "Tutup"
+    },
+    "Kamis": {
+      "type": "string",
+      "default": "Tutup"
+    },
+    "Jumat": {
+      "type": "string",
+      "default": "Tutup"
+    },
+    "Sabtu": {
+      "type": "string",
+      "default": "Tutup"
+    }
+  },
+  "config": {}
+}

@@ -1,0 +1,42 @@
+{
+  "kind": "collectionType",
+  "collectionName": "shop_menus",
+  "info": {
+    "singularName": "shop-menu",
+    "pluralName": "shop-menus",
+    "displayName": "Shop Menu"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "shop": {
+      "type": "relation",
+      "required": true,
+      "relation": "manyToOne",
+      "target": "api::shop.shop",
+      "inversedBy": "shop_menus"
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "subtitle": {
+      "type": "string"
+    },
+    "price": {
+      "type": "biginteger"
+    },
+    "category": {
+      "type": "enumeration",
+      "enum": [
+        "Appetizers",
+        "Main Courses",
+        "Desserts",
+        "Beverages",
+        "Set"
+      ]
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "collectionName": "components_global_shop_addresses",
+  "info": {
+    "displayName": "Shop Address",
+    "icon": "pinMap"
+  },
+  "options": {},
+  "attributes": {
+    "Type": {
+      "type": "string"
+    },
+    "Street": {
+      "type": "string"
+    },
+    "Number": {
+      "type": "string"
+    },
+    "Locality": {
+      "type": "string"
+    },
+    "Postal": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

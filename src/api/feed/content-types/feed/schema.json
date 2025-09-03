@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "feeds",
+  "info": {
+    "singularName": "feed",
+    "pluralName": "feeds",
+    "displayName": "Feed"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "site": {
+      "type": "relation",
+      "required": true,
+      "relation": "oneToOne",
+      "target": "api::site.site"
+    },
+    "type": {
+      "type": "enumeration",
+      "default": "information",
+      "enum": [
+        "information",
+        "news",
+        "alert",
+        "announcement",
+        "gift"
+      ]
+    },
+    "message": {
+      "type": "text",
+      "required": true
+    }
+  }
+}

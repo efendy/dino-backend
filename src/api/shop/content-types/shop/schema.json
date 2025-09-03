@@ -1,0 +1,108 @@
+{
+  "kind": "collectionType",
+  "collectionName": "shops",
+  "info": {
+    "singularName": "shop",
+    "pluralName": "shops",
+    "displayName": "Shop"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "site": {
+      "type": "relation",
+      "required": true,
+      "relation": "oneToOne",
+      "target": "api::site.site"
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "subtitle": {
+      "type": "string"
+    },
+    "contact": {
+      "type": "string"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": false
+    },
+    "has_promo": {
+      "type": "boolean",
+      "default": false
+    },
+    "has_whatsapp": {
+      "type": "boolean",
+      "default": false
+    },
+    "address": {
+      "type": "component",
+      "component": "global.shop-address",
+      "repeatable": false,
+      "required": true
+    },
+    "operation_info": {
+      "type": "component",
+      "component": "global.operation-info",
+      "repeatable": true
+    },
+    "tags": {
+      "type": "json",
+      "required": true
+    },
+    "category": {
+      "type": "enumeration",
+      "default": "Food and Beverage",
+      "enum": [
+        "Food and Beverage",
+        "Other"
+      ]
+    },
+    "shop_menus": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::shop-menu.shop-menu",
+      "conditions": {
+        "visible": {
+          "==": [
+            {
+              "var": "Category"
+            },
+            "Food and Beverage"
+          ]
+        }
+      },
+      "mappedBy": "shop_info"
+    },
+    "promo_images": {
+      "type": "media",
+      "conditions": {
+        "visible": {
+          "==": [
+            {
+              "var": "Has_Promo"
+            },
+            true
+          ]
+        }
+      },
+      "multiple": true,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
+    },
+    "shop_images": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
+    }
+  }
+}
