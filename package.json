@@ -31,7 +31,7 @@
     "typescript": "^5"
   },
   "engines": {
-    "node": "22.19.0",
+    "node": "22.x",
     "npm": ">=6.0.0"
   },
   "strapi": {
