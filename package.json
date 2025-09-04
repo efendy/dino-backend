@@ -17,6 +17,7 @@
   "dependencies": {
     "@strapi/plugin-cloud": "5.23.2",
     "@strapi/plugin-users-permissions": "5.23.2",
+    "@strapi/provider-upload-aws-s3": "5.23.2",
     "@strapi/strapi": "5.23.2",
     "mysql2": "3.14.4",
     "react": "^18.0.0",
