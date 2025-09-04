@@ -1,0 +1,28 @@
+version: "3.8"
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: dino-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: strapi-dino
+      MYSQL_USER: strapiuser
+      MYSQL_PASSWORD: IHaveLongPassword1234
+    volumes:
+      - /mnt/mysql_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+  strapi:
+    build: .
+    container_name: dino-strapi
+    restart: unless-stopped
+    env_file: .env.production
+    ports:
+      - "1337:1337"
+    depends_on:
+      - mysql
+    volumes:
+      - ./public:/app/public

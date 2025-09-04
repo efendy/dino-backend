@@ -1,0 +1,71 @@
+name: Deploy Server with Droplet MySQL
+
+on:
+  workflow_dispatch:
+    # Manual trigger only
+    inputs:
+      reason:
+        description: 'Reason for deployment'
+        required: false
+        default: ''
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    env:
+      NODE_ENV: production
+      PORT: ${{ secrets.STRAPI_PORT }}
+      APP_KEYS: ${{ secrets.STRAPI_APP_KEYS }}
+      API_TOKEN_SALT: ${{ secrets.STRAPI_API_TOKEN_SALT }}
+      ADMIN_JWT_SECRET: ${{ secrets.STRAPI_ADMIN_JWT_SECRET }}
+      TRANSFER_TOKEN_SALT: ${{ secrets.STRAPI_TRANSFER_TOKEN_SALT }}
+      ENCRYPTION_KEY: ${{ secrets.STRAPI_ENCRYPTION_KEY }}
+      JWT_SECRET: ${{ secrets.STRAPI_JWT_SECRET }}
+      STORAGE_KEY: ${{ secrets.STORAGE_KEY }}
+      STORAGE_SECRET: ${{ secrets.STORAGE_SECRET }}
+      STORAGE_ENDPOINT: ${{ secrets.STORAGE_ENDPOINT }}
+      STORAGE_REGION: ${{ secrets.STORAGE_REGION }}
+      STORAGE_BUCKET: ${{ secrets.STORAGE_BUCKET }}
+      DATABASE_HOST: ${{ secrets.DATABASE_HOST }}
+      DATABASE_PORT: ${{ secrets.DATABASE_PORT }}
+      DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
+      DATABASE_USERNAME: ${{ secrets.DATABASE_USERNAME }}
+      DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+      MYSQL_DATA_MOUNT: ${{ secrets.MYSQL_DATA_MOUNT }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install dependencies
+        run: npm ci
+      - name: Build Strapi
+        run: npm run build
+      - name: Deploy to Server
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          script: |
+            # Ensure MySQL is installed
+            if ! command -v mysql >/dev/null 2>&1; then
+              sudo apt-get update
+              sudo apt-get install -y mysql-server
+            fi
+            # Ensure mount path exists
+            if [ ! -d "$MYSQL_DATA_MOUNT" ]; then
+              echo "MySQL data mount path $MYSQL_DATA_MOUNT does not exist!"
+              exit 1
+            fi
+            # Update MySQL config if needed
+            sudo sed -i "s|^datadir.*|datadir = $MYSQL_DATA_MOUNT|" /etc/mysql/mysql.conf.d/mysqld.cnf
+            sudo systemctl restart mysql
+            sudo systemctl status mysql
+            cd /path/to/app
+            git pull
+            npm ci
+            npm run build
+            pm2 restart all
